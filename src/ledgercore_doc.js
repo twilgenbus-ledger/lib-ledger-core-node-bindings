@@ -3713,7 +3713,7 @@ declare class NJSBitcoinLikeAccount
     declare function getUTXOCount(callback: NJSI32Callback);
     declare function broadcastRawTransaction(transaction: String, callback: NJSStringCallback);
     declare function broadcastTransaction(transaction: NJSBitcoinLikeTransaction, callback: NJSStringCallback);
-    declare function buildTransaction(partial: boolean, nbChangeToUse: number): NJSBitcoinLikeTransactionBuilder;
+    declare function buildTransaction(partial: boolean): NJSBitcoinLikeTransactionBuilder;
     /**
      * Get fees from network, fees are ordered in descending order (i.e. fastest to slowest confirmation)
      * Note: it would have been better to have this method on BitcoinLikeWallet
