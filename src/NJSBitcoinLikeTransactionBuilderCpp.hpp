@@ -15,6 +15,7 @@
 #include "../include/RippleLikeNetworkParameters.hpp"
 #include "../include/StellarLikeNetworkParameters.hpp"
 #include "../include/TezosLikeNetworkParameters.hpp"
+#include "NJSAddressCpp.hpp"
 #include "NJSAmountCpp.hpp"
 #include "NJSBitcoinLikeScriptCpp.hpp"
 #include "NJSBitcoinLikeTransactionCallback.hpp"
@@ -90,6 +91,12 @@ private:
      * @return A reference on the same builder in order to chain calls.
      */
     static NAN_METHOD(setMinAmountOnChange);
+
+    /**
+     * Set a donation address for change < amount. This use setMinAmountOnChange.
+     * @return A reference on the same builder in order to chain calls.
+     */
+    static NAN_METHOD(setDonationAddress);
 
     /**
      * Set the UTXO picking strategy (see [[BitcoinLikePickingStrategy]]).

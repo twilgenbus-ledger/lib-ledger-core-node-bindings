@@ -229,6 +229,39 @@ NAN_METHOD(NJSBitcoinLikeTransactionBuilder::setMinAmountOnChange) {
     //Return result
     info.GetReturnValue().Set(arg_1);
 }
+NAN_METHOD(NJSBitcoinLikeTransactionBuilder::setDonationAddress) {
+
+    //Check if method called with right number of arguments
+    if(info.Length() != 1)
+    {
+        return Nan::ThrowError("NJSBitcoinLikeTransactionBuilder::setDonationAddress needs 1 arguments");
+    }
+
+    //Check if parameters have correct types
+    Local<Object> njs_arg_0 = info[0]->ToObject(Nan::GetCurrentContext()).ToLocalChecked();
+    auto arg_0 = djinni::js::ObjectWrapper<ledger::core::api::Address>::Unwrap(njs_arg_0);
+    if(!arg_0)
+    {
+        return Nan::ThrowError("NodeJs Object to NJSAddress failed");
+    }
+
+
+    //Unwrap current object and retrieve its Cpp Implementation
+    auto cpp_impl = djinni::js::ObjectWrapper<ledger::core::api::BitcoinLikeTransactionBuilder>::Unwrap(info.This());
+    if(!cpp_impl)
+    {
+        return Nan::ThrowError("NJSBitcoinLikeTransactionBuilder::setDonationAddress : implementation of BitcoinLikeTransactionBuilder is not valid");
+    }
+
+    auto result = cpp_impl->setDonationAddress(arg_0);
+
+    //Wrap result in node object
+    auto arg_1 = NJSBitcoinLikeTransactionBuilder::wrap(result);
+
+
+    //Return result
+    info.GetReturnValue().Set(arg_1);
+}
 NAN_METHOD(NJSBitcoinLikeTransactionBuilder::pickInputs) {
 
     //Check if method called with right number of arguments
@@ -1053,6 +1086,7 @@ void NJSBitcoinLikeTransactionBuilder::Initialize(Local<Object> target) {
     Nan::SetPrototypeMethod(func_template,"setNumberOfChangeAddresses", setNumberOfChangeAddresses);
     Nan::SetPrototypeMethod(func_template,"setMaxAmountOnChange", setMaxAmountOnChange);
     Nan::SetPrototypeMethod(func_template,"setMinAmountOnChange", setMinAmountOnChange);
+    Nan::SetPrototypeMethod(func_template,"setDonationAddress", setDonationAddress);
     Nan::SetPrototypeMethod(func_template,"pickInputs", pickInputs);
     Nan::SetPrototypeMethod(func_template,"sendToAddress", sendToAddress);
     Nan::SetPrototypeMethod(func_template,"wipeToAddress", wipeToAddress);

@@ -137,13 +137,14 @@ NAN_METHOD(NJSBitcoinLikeAccount::broadcastTransaction) {
 NAN_METHOD(NJSBitcoinLikeAccount::buildTransaction) {
 
     //Check if method called with right number of arguments
-    if(info.Length() != 1)
+    if(info.Length() != 2)
     {
-        return Nan::ThrowError("NJSBitcoinLikeAccount::buildTransaction needs 1 arguments");
+        return Nan::ThrowError("NJSBitcoinLikeAccount::buildTransaction needs 2 arguments");
     }
 
     //Check if parameters have correct types
     auto arg_0 = Nan::To<bool>(info[0]).FromJust();
+    auto arg_1 = Nan::To<int32_t>(info[1]).FromJust();
 
     //Unwrap current object and retrieve its Cpp Implementation
     auto cpp_impl = djinni::js::ObjectWrapper<ledger::core::api::BitcoinLikeAccount>::Unwrap(info.This());
@@ -152,14 +153,14 @@ NAN_METHOD(NJSBitcoinLikeAccount::buildTransaction) {
         return Nan::ThrowError("NJSBitcoinLikeAccount::buildTransaction : implementation of BitcoinLikeAccount is not valid");
     }
 
-    auto result = cpp_impl->buildTransaction(arg_0);
+    auto result = cpp_impl->buildTransaction(arg_0,arg_1);
 
     //Wrap result in node object
-    auto arg_1 = NJSBitcoinLikeTransactionBuilder::wrap(result);
+    auto arg_2 = NJSBitcoinLikeTransactionBuilder::wrap(result);
 
 
     //Return result
-    info.GetReturnValue().Set(arg_1);
+    info.GetReturnValue().Set(arg_2);
 }
 NAN_METHOD(NJSBitcoinLikeAccount::getFees) {
 

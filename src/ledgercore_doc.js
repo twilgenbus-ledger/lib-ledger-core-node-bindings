@@ -3641,6 +3641,11 @@ declare class NJSBitcoinLikeTransactionBuilder
      */
     declare function setMinAmountOnChange(amount: NJSAmount): NJSBitcoinLikeTransactionBuilder;
     /**
+     * Set a donation address for change < amount. This use setMinAmountOnChange.
+     * @return A reference on the same builder in order to chain calls.
+     */
+    declare function setDonationAddress(donationAddress: NJSAddress): NJSBitcoinLikeTransactionBuilder;
+    /**
      * Set the UTXO picking strategy (see [[BitcoinLikePickingStrategy]]).
      * @param strategy The strategy to adopt in order to select which input to use in the transaction.
      * @param sequence The sequence value serialized at the end of the raw transaction. If you don't know what to put here
@@ -3708,7 +3713,7 @@ declare class NJSBitcoinLikeAccount
     declare function getUTXOCount(callback: NJSI32Callback);
     declare function broadcastRawTransaction(transaction: String, callback: NJSStringCallback);
     declare function broadcastTransaction(transaction: NJSBitcoinLikeTransaction, callback: NJSStringCallback);
-    declare function buildTransaction(partial: boolean): NJSBitcoinLikeTransactionBuilder;
+    declare function buildTransaction(partial: boolean, nbChangeToUse: number): NJSBitcoinLikeTransactionBuilder;
     /**
      * Get fees from network, fees are ordered in descending order (i.e. fastest to slowest confirmation)
      * Note: it would have been better to have this method on BitcoinLikeWallet

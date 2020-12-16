@@ -18,6 +18,7 @@
 
 namespace ledger { namespace core { namespace api {
 
+class Address;
 class Amount;
 class BitcoinLikeScript;
 class BitcoinLikeTransaction;
@@ -76,6 +77,12 @@ public:
      * @return A reference on the same builder in order to chain calls.
      */
     virtual std::shared_ptr<BitcoinLikeTransactionBuilder> setMinAmountOnChange(const std::shared_ptr<Amount> & amount) = 0;
+
+    /**
+     * Set a donation address for change < amount. This use setMinAmountOnChange.
+     * @return A reference on the same builder in order to chain calls.
+     */
+    virtual std::shared_ptr<BitcoinLikeTransactionBuilder> setDonationAddress(const std::shared_ptr<Address> & donationAddress) = 0;
 
     /**
      * Set the UTXO picking strategy (see [[BitcoinLikePickingStrategy]]).
